@@ -1,5 +1,7 @@
 package ca.uwaterloo.cheng.modules;
 
+import java.security.SecureRandom;
+
 public class DPFValue {
     private final int lambda;
     private final int input_len;
@@ -31,6 +33,7 @@ public class DPFValue {
     }
 
     public Bits[] Gen(Bits alpha, Bits beta) {
+        SecureRandom random = new SecureRandom();
         if (alpha.length() != input_len || beta.length() != output_len) {
             System.out.println("Input size and Output size are not correct!");
             System.exit(-1);

@@ -488,6 +488,7 @@ public class ODPF {
         }
         end = System.nanoTime();
         System.out.println("\nClient - update query generation latency:"+(end-start)/1000000);
+        System.out.println("update length:"+(enc_ctx.length()+num_slots * XORMAC.MACBYTES * chi *8));
 
         System.out.println("Server Updating...");
         start = System.nanoTime();
@@ -557,17 +558,26 @@ public class ODPF {
 //        mode = 2;
 //        search_keywords = new String[]{"english"};
 
-        max_size = 100;
-        doc_size = 1;
-        path = "/Users/cheng/IdeaProjects/KeyPhraseSearch/Datasets/synthetic_keywords_"+doc_size+"_"+max_size+".csv";
-        mode = 0;
-        search_keywords = new String[]{"explorer", "quotation", "divorce"};
+//        path = "/Users/cheng/IdeaProjects/KeyPhraseSearch/Datasets/test.csv";
+//        max_size = 3;
+//        doc_size = 3;
+//        mode = 3;
+//        search_keywords = new String[]{"quotation"};
 
-        ODPF odpf = new ODPF(path, max_size, doc_size, mode, search_keywords, 1, 1);
+        path = "/Users/cheng/IdeaProjects/KeyPhraseSearch/Datasets/synthetic_keywords_1_1000.csv";
+        max_size = 1000;
+        doc_size = 1;
+        mode = 2;
+        search_keywords = new String[]{"english"};
+
+        int q = 1;
+        int d = 1;
+        ODPF odpf = new ODPF(path, max_size, doc_size, mode, search_keywords, q, d);
         boolean isMAC = true;
         odpf.BuildIndex(isMAC);
         odpf.CreateMAC(isMAC);
-//        odpf.SearchTest(isMAC, 10);
-//        odpf.UpdateSim(isMAC);
+        int M = 100;
+        odpf.SearchTest(isMAC, M);
+        odpf.UpdateSim(isMAC);
     }
 }

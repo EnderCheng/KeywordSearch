@@ -76,7 +76,6 @@ public class Baseline {
             String strLine;
             start = System.nanoTime();
             while ((strLine = br.readLine()) != null) {
-
                 BloomVector bvector = new BloomVector(num_bits_per_row);
                 List<String> word = Arrays.asList(strLine.split(","));
                 if (word.size() > max_size) {
@@ -350,9 +349,9 @@ public class Baseline {
             }
             send_macs = ByteUtils.concatenate(update_macs);
         }
-
         end = System.nanoTime();
         System.out.println("Client - update query generation latency:" + (end - start) / 1000000);
+        System.out.println("update length:"+(cipher.length()+send_macs.length*8));
 
         //Server
         System.out.println("Server Updating...");
@@ -416,18 +415,24 @@ public class Baseline {
 //        search_keywords = new String[]{"explorer", "quotation", "divorce"};
 
 
-        path = "/Users/cheng/IdeaProjects/KeyPhraseSearch/Datasets/sample_keywords.csv";
+        path = "/Users/cheng/IdeaProjects/KeyPhraseSearch/Datasets/synthetic_keywords_1_1000.csv";
         max_size = 1000;
-        doc_size = 4000;
+        doc_size = 1;
         mode = 2;
         search_keywords = new String[]{"english"};
+
+//        path = "/Users/cheng/IdeaProjects/KeyPhraseSearch/Datasets/test.csv";
+//        max_size = 3;
+//        doc_size = 3;
+//        mode = 3;
+//        search_keywords = new String[]{"quotation"};
 
 
         Baseline bl_test = new Baseline(path, max_size, doc_size, mode, search_keywords);
         boolean isMAC = true;
         bl_test.BuildIndex(isMAC);
         bl_test.CreateMAC(isMAC);
-//        bl_test.SearchTest(isMAC);
-//        bl_test.UpdateSim(isMAC);
+        bl_test.SearchTest(isMAC);
+        bl_test.UpdateSim(isMAC);
     }
 }

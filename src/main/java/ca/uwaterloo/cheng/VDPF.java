@@ -257,7 +257,7 @@ public class VDPF {
         Bits[][][] keys = new Bits[search_key_words.length][][];
         for (int i = 0; i < search_key_words.length; i++) {
             int[] indexes = cf.getBuckets(search_key_words[i]);
-            System.out.println("indexes:"+Arrays.toString(indexes));
+//            System.out.println("indexes:"+Arrays.toString(indexes));
             keys[i] = new Bits[indexes.length][];
             for(int j=0;j<indexes.length;j++)
             {
@@ -529,6 +529,7 @@ public class VDPF {
         }
         end = System.nanoTime();
         System.out.println("\nClient - update query generation latency:" + (end - start) / 1000000);
+        System.out.println("update length:"+(enc_ctx.length()+num_slots * XORMAC.MACBYTES * chi *8));
 
         System.out.println("Server Updating...");
         start = System.nanoTime();
@@ -580,23 +581,29 @@ public class VDPF {
         search_keywords = new String[]{"quotation"};
         */
 
-        path = "/Users/cheng/IdeaProjects/KeyPhraseSearch/Datasets/sample_keywords.csv";
-        max_size = 1000;
-        doc_size = 4000;
-        mode = 2;
-        search_keywords = new String[]{"english"};
-
-//        max_size = 100;
-//        doc_size = 1;
-//        path = "/Users/cheng/IdeaProjects/KeyPhraseSearch/Datasets/synthetic_keywords_"+doc_size+"_"+max_size+".csv";
+//        path = "/Users/cheng/IdeaProjects/KeyPhraseSearch/Datasets/sample_keywords.csv";
+//        max_size = 1000;
+//        doc_size = 4000;
 //        mode = 2;
-//        search_keywords = new String[]{"explorer", "quotation", "divorce"};
+//        search_keywords = new String[]{"english"};
 
-        VDPF vdpf = new VDPF(path, max_size, doc_size, mode, search_keywords, 1, 1, 10, 0.9);
+        max_size = 1000;
+        doc_size = 1;
+        path = "/Users/cheng/IdeaProjects/KeyPhraseSearch/Datasets/synthetic_keywords_"+doc_size+"_"+max_size+".csv";
+        mode = 2;
+        search_keywords = new String[]{"explorer"};
+
+//        path = "/Users/cheng/IdeaProjects/KeyPhraseSearch/Datasets/test.csv";
+//        max_size = 3;
+//        doc_size = 3;
+//        mode = 3;
+//        search_keywords = new String[]{"quotation"};
+
+        VDPF vdpf = new VDPF(path, max_size, doc_size, mode, search_keywords, 1, 1, 100, 0.9);
         boolean isMAC = true;
         vdpf.BuildIndex(isMAC);
         vdpf.CreateMAC(isMAC);
-//        vdpf.SearchTest(isMAC);
-//        vdpf.UpdateSim(isMAC);
+        vdpf.SearchTest(isMAC);
+        vdpf.UpdateSim(isMAC);
     }
 }

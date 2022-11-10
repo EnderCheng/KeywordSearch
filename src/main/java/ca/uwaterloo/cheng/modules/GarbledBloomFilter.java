@@ -30,7 +30,7 @@ public class GarbledBloomFilter {
         this.capacity = capacity;
         this.fPP = fPP;
         this.numSlots = (int) Math.ceil((capacity * Math.log(fPP)) / Math.log(1 / Math.pow(2, Math.log(2))));
-        this.numHashes = (int) Math.round((numSlots / capacity) * Math.log(2));
+        this.numHashes = (int) Math.ceil((numSlots / capacity) * Math.log(2));
         this.numBitsPerSlot = numHashes;
         hashes = new Murmur3Hash(seed,numHashes);
     }

@@ -23,6 +23,8 @@ import java.util.stream.Stream;
 
 public class Utils {
 
+    public static SecureRandom random = new SecureRandom();
+
     public static Bits concatenate(Bits[] sets) {
 //        int totalBitsEach = 0;
 //        for (int i = 0; i < sets.length; i++) {
@@ -40,6 +42,7 @@ public class Utils {
 //        {
 //            e.printStackTrace();
 //        }
+//        return null;
         int totalBitsEach = 0;
         for (int i = 0; i < sets.length; i++) {
             totalBitsEach = totalBitsEach + sets[i].length();
@@ -107,14 +110,26 @@ public class Utils {
         return bits;
     }
 
+//    public static Bits get_random_rits(int n) {
+//        SecureRandom random = new SecureRandom();
+//        random.setSeed(System.nanoTime());
+//        Bits bits = new Bits(n);
+//        for (int i = 0; i < n-1; i++) {
+//            bits.set(i, random.nextBoolean());
+//        }
+//        return bits;
+//    }
+
     public static Bits get_random_rits(int n) {
-        SecureRandom random = new SecureRandom();
-        random.setSeed(System.nanoTime());
-        Bits bits = new Bits(n);
-        for (int i = 0; i < n-1; i++) {
-            bits.set(i, random.nextBoolean());
-        }
-        return bits;
+        return get_random_rits(n,random);
+    }
+
+
+    public static Bits get_random_rits(int n, SecureRandom random) {
+        int byte_num = (int) Math.ceil(n/8);
+        byte[] bytes = new byte[byte_num];
+        random.nextBytes(bytes);
+        return byteArrayToBits(bytes,n);
     }
 
     public static Bits zero_bit_set(int n) {
@@ -129,17 +144,17 @@ public class Utils {
         try {
             SecureRandom random = SecureRandom.getInstance("SHA1PRNG");
 
-        random.setSeed(in.toByteArray());
-        int n = lambda * 2 + 2;
-        int byte_len = n/8;
-        byte[] randomness = new byte[byte_len];
-        random.nextBytes(randomness);
-        Bits bits = Utils.byteArrayToBits(randomness,n);
+            random.setSeed(in.toByteArray());
+            int n = lambda * 2 + 2;
+            int byte_len = n/8;
+            byte[] randomness = new byte[byte_len];
+            random.nextBytes(randomness);
+            Bits bits = Utils.byteArrayToBits(randomness,n);
 //        Bits bits = new Bits(n);
 //        for (int i = 0; i < n; i++) {
 //            bits.set(i, random.nextBoolean());
 //        }
-        return bits;
+            return bits;
         }catch (Exception e)
         {
             e.printStackTrace();
@@ -798,13 +813,15 @@ public class Utils {
 
 
     public static void main(String[] args) {
-        Bits keys = long_to_bits(12354354645645l,128);
-        Bits out1 = prg(keys,128);
-        Bits out2 = prg(keys,160);
-        Bits out3 = prg(keys,180);
-        System.out.println(out1);
-        System.out.println(out2);
-        System.out.println(out3);
+//        Bits keys = long_to_bits(12354354645645l,128);
+//        Bits out1 = prg(keys,128);
+//        Bits out2 = prg(keys,160);
+//        Bits out3 = prg(keys,180);
+        int num = 8;
+        System.out.println(len_long(8));
+//        System.out.println(out1);
+//        System.out.println(out2);
+//        System.out.println(out3);
 //        System.out.println(sumBaseB("44","1",5));
 //        byte[][] xxx = new byte[10][16];
 //        for(int i=0;i<10;i++)

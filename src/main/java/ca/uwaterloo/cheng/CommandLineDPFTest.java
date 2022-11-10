@@ -1,15 +1,6 @@
 package ca.uwaterloo.cheng;
 
-import ca.uwaterloo.cheng.modules.*;
-import org.checkerframework.checker.guieffect.qual.UI;
-
-import java.io.*;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.BitSet;
-import java.util.List;
-
-public class ConmandLineDPFTest {
+public class CommandLineDPFTest {
 
     // /Users/cheng/IdeaProjects/KeyPhraseSearch/Datasets/synthetic_keywords_1000_100.csv 100 1000 1 divorce
 

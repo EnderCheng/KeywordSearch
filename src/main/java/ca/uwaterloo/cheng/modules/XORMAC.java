@@ -2,6 +2,7 @@ package ca.uwaterloo.cheng.modules;
 
 import org.bouncycastle.pqc.math.linearalgebra.ByteUtils;
 
+import java.security.SecureRandom;
 import java.util.ArrayList;
 
 public class XORMAC {
