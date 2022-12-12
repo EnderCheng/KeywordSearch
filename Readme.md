@@ -1,5 +1,5 @@
 ## Read Me
-This is the source code for the paper "Multi-client Secure DPF-based Keyword Search with Practical Performance Trade-offs" submitted to TDSC.
+This is the source code for the paper "Multi-client Secure and Efficient DPF-based Keyword Search for Cloud Storage" submitted to TDSC.
 
 ### How to Use
 The source code is a Java project with Gradle built using IntelliJ IDEA 2022.2.3 (Community Edition).
